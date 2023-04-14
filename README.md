@@ -4,9 +4,24 @@ Geolocation by light refers to a tracking method for animals and notably birds u
 
 **Calibration** is a crucial part of geolocation by light. Getting the correct zenith angle for the defined twilight events events is usually done using recordings with known location (e.g., after deployment on the breeding site of the individual). However, often the conditions (weather, habitat) on the breeding sites do not match the conditions during the migration and wintering period. This can lead to a bias in location estimates and even lower accuracy than on would expect given the twilight error distribution.
 
-**_For a specific study on the migrations of Pied Flycatchers (Fraser et al. in prep)_**, we developed a method that finds optimal zenith angles and twiligth error distributions from  stationary periods at unknown locations, based on the principles of the so called [Hill-Ekstrom calibration](https://geolocationmanual.vogelwarte.ch/GeoLight.html#hill-ekstrom-calibration) (Lisovski et al. 2020).
+**_For a specific study on the migrations of Pied Flycatchers (Fraser et al. in prep)_**, we developed a method that finds optimal zenith angles and twilight error distributions from  stationary periods at unknown locations, based on the principles of the so called [Hill-Ekstrom calibration](https://geolocationmanual.vogelwarte.ch/GeoLight.html#hill-ekstrom-calibration) (Lisovski et al. 2020).
 
 This method requires a **movement analysis**, a prior definition of periods when the bird was stationary. Here, we used a method previously described (e.g., Sander et al. 2021, Meier et al. 2022) and published in a github repository [invMovement](https://github.com/slisovski/invMovement). In a nutshell, the method investigates changes in sunrise and sunset and identifies changes that are larger than the expected error due to shading (based on estimates during periods at known location). Such changes are labeled as movement periods, while no change in sunrise/sunset over consecutive days, or small changes that are within the error distribution are labelled as stationary period.
+
+For the analysis, we used the `groupThresholdModel` from the R package `SGAT` [GitHub repo](https://github.com/SWotherspoon/SGAT). This method allows to make use of movement analysis and estimates one single location for each defined stationary period, generally increasing accuracy (see description [here](https://geolocationmanual.vogelwarte.ch/SGAT.html#the-groupe-model)). However, often users struggle with the combination of the `invMovement` method in combination with the `groupThresholdMethod`. Often the MCMC simulation in SGAT fails using the labeled movement/stationary periods and the zenith angle from the calibration. This is a result of either incorrect zenith angles or more likely a movements happened during one or more defined stationary period and the zenith angle cannot infer single locations recorded at distant sites. To overcome this problem, we make use of the failing MCMC simulations to validate the stationary periods and optimize the best movement probability thresholds used in the `invMovement` method.
+
+## The analysis pipeline
+
+```
+## required packages
+library(SGAT)
+library(TwGeos)
+libary(sp)
+
+## required functions
+source("functions/fraser_etal.R")
+```
+
 
 
 
