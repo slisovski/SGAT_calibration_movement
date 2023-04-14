@@ -1,26 +1,12 @@
-# Geolocation by Light: movement analysis and calobration methods in SGAT
+# Geolocation by Light: movement analysis and calibration methods in SGAT
 
 Geolocation by light refers to a tracking method for animals and notably birds using archival tags that record light intensities over time. From light, twilight events or periods (sunrise, sunset) can be identified. Using a reference zenith angle defining the suns position during the defined sunrise/sunset time, locations can be calculated. Given that light is subject to multiple sources of shading (e.g., clouds, vegetation), the method results in low accuracy compared to e.g., gps locations. Multiple methods have been developed to derive robust location estimates and quantify the location specific error (see Lisovski et al. 2012, 2020). 
 
 **Calibration** is a crucial part of geolocation by light. Getting the correct zenith angle for the defined twilight events events is usually done using recordings with known location (e.g., after deployment on the breeding site of the individual). However, often the conditions (weather, habitat) on the breeding sites do not match the conditions during the migration and wintering period. This can lead to a bias in location estimates and even lower accuracy than on would expect given the twilight error distribution.
 
-For a specific study on the migrations of Pied Flycatchers (Fraser et al. in prep), we developed a method that finds optimal zenith angles and twiligth error distributions from  stationary periods at unknown locations, based on the principles of the so called [Hill-Ekstrom calibration](https://geolocationmanual.vogelwarte.ch/GeoLight.html#hill-ekstrom-calibration) (Lisovski et al. 2020).
+**_For a specific study on the migrations of Pied Flycatchers (Fraser et al. in prep)_**, we developed a method that finds optimal zenith angles and twiligth error distributions from  stationary periods at unknown locations, based on the principles of the so called [Hill-Ekstrom calibration](https://geolocationmanual.vogelwarte.ch/GeoLight.html#hill-ekstrom-calibration) (Lisovski et al. 2020).
 
 This method requires a **movement analysis**, a prior definition of periods when the bird was stationary. Here, we used a method previously described (e.g., Sander et al. 2021, Meier et al. 2022) and published in a github repository [invMovement](https://github.com/slisovski/invMovement). In a nutshell, the method investigates changes in sunrise and sunset and identifies changes that are larger than the expected error due to shading (based on estimates during periods at known location). Such changes are labeled as movement periods, while no change in sunrise/sunset over consecutive days, or small changes that are within the error distribution are labelled as stationary period.
-
-
-
-
-
-Tracking birds using light level geolocators require robust and representative calibration periods (Lisovski et al. 2020). Due to several reasons, the required data is often missing or suboptimal. For a study on Pied Flycatchers (Fraser et al. in prep), the calibration problem was evident; light recordings during the post-breeding period at known location, frequently used to calibrate and derive the necessary reference zenith angle and twilight error distributions, did not reflect the expected conditions during the migration and wintering period (in Africa).
-
-To overcome this problem, we developed a calibration methods that optimizes zenith angles during multiple stopover periods at unknown locations. The principle behind the method is the so called Hill-Ekstrom calibration described in Lisovski et al. 2020.
-
-
-Code and description of geolocation by light method using the groupModel of SGAT (Bell et al. 2023)
-
-
-
 
 
 
